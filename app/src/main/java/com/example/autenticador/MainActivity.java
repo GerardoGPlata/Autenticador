@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         btnLogin.setOnClickListener(v -> {
+
             login(etCorreo.getText().toString(), etPassword.getText().toString());
         });
     }
@@ -78,7 +79,19 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     AuthModels.LoginResponse loginResponse = response.body();
                     String token = loginResponse.getToken();
+                    String message = loginResponse.getMessage();
+                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
 
+                    if(message.equals("Usuario no autorizado")) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                        btnLogin.setEnabled(true);
+                        return;
+                    }
+                    if (token.isEmpty()) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                        btnLogin.setEnabled(true);
+                        return;
+                    }
                     //guardar el token en SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
                     SharedPreferences.Editor myEdit = sharedPreferences.edit();
@@ -92,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Verifica tus datos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Verifica tus credenciales", Toast.LENGTH_SHORT).show();
                     btnLogin.setEnabled(true);
                 }
             }

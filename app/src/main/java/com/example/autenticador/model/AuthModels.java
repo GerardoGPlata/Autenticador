@@ -24,11 +24,11 @@ public class AuthModels {
         private String message;
 
         public String getToken() {
-            return token;
+            return token==null?"":token;
         }
 
         public String getMessage() {
-            return message;
+            return message==null?"":message;
         }
     }
 

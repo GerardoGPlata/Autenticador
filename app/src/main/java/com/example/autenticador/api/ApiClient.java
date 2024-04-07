@@ -1,5 +1,7 @@
 package com.example.autenticador.api;
 
+import com.example.autenticador.MainActivity;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,4 +12,5 @@ public class ApiClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
 }
